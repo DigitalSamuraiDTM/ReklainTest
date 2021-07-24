@@ -33,6 +33,9 @@ class WebActivity : MvpAppCompatActivity(), ViewStateWebActivity {
 
         setTitle("Web")
 
+
+        //проверка на то, откуда мы пришли. Если из пуш уведомления, то будет true
+        // после чего сохранит данные для следующих запусков
         if(intent?.extras?.getBoolean("FromPush",false) == true){
             val editor = this.getSharedPreferences("ReklainTest", MODE_PRIVATE).edit()
             editor.putBoolean("FromPush", true)
@@ -52,13 +55,11 @@ class WebActivity : MvpAppCompatActivity(), ViewStateWebActivity {
     }
 
     override fun onPause() {
-
         presenter.saveState(web)
         super.onPause()
     }
 
     override fun onResume() {
-
         presenter.initState(web)
         super.onResume()
     }

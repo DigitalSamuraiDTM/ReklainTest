@@ -22,6 +22,7 @@ class GameActivity : MvpAppCompatActivity(), ViewStateGameActivity, View.OnClick
 
     val presenter by moxyPresenter {presenterProvider.get()};
 
+    //массив хранит указатель ресурса и расположение на матрице
     private lateinit var btnArray : HashMap<Int, Pair<Int, Int>>
 
     private lateinit var gameLay : GridLayout
@@ -65,30 +66,39 @@ class GameActivity : MvpAppCompatActivity(), ViewStateGameActivity, View.OnClick
         presenter.ticTacToeClick(btnArray.get(p0?.id)!!)
     }
 
+
+    //функция ставит крестик на кнопку. Так как мы не имеем ссылки на все кнопки, то ищем с помощью эквиваленции хэшей Pair из Hashmap
+    //к сожалению лучше способа не придумал :с
     override fun setCrestInThisButton(id: Pair<Int, Int>) {
         val c = gameLay.childCount
         for (i : Int in 0 until c) {
+
             with(gameLay.getChildAt(i).id) {
                 if ((btnArray.get(this)).hashCode().equals(id.hashCode())) {
+
                     with((findViewById(this) as ImageButton)){
                         this.setImageDrawable(
                             AppCompatResources.getDrawable(
                                 this@GameActivity,
                                 R.drawable.ic_crest_black))
                         this.isClickable = false
-                    }
 
+                    }
                 }
             }
         }
 
     }
 
+    //функция ставит нолик на кнопку. Так как мы не имеем ссылки на все кнопки, то ищем с помощью эквиваленции хэшей Pair из Hashmap
+
     override fun setCircleInThisButton(id: Pair<Int, Int>) {
         val c = gameLay.childCount
         for (i : Int in 0 until c) {
+
             with(gameLay.getChildAt(i).id) {
                 if ((btnArray.get(this)).hashCode().equals(id.hashCode())) {
+
                         with((findViewById(this) as ImageButton)){
                             this.setImageDrawable(
                             AppCompatResources.getDrawable(
@@ -96,7 +106,6 @@ class GameActivity : MvpAppCompatActivity(), ViewStateGameActivity, View.OnClick
                                 R.drawable.ic_circle_black))
                             this.isClickable = false
                         }
-
                 }
             }
         }
