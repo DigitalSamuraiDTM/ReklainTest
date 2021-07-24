@@ -9,5 +9,5 @@ import javax.inject.Singleton
 @Component(modules = [MainModule::class])
 interface AppDaggerComponent {
     fun injectGameActivity(activity : GameActivity)
-    fun injectBrowserActivity(activity: WebActivity) //TODO BROWSER
+    fun injectBrowserActivity(activity: WebActivity)
 }
